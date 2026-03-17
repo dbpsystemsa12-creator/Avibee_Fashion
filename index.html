@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
 <title>Vaibhavee Pandey | Model & Creator</title>
 <meta name="description" content="Vaibhavee Pandey — Award-winning model, content creator & founder of Avibee Fashions.">
 <meta name="author" content="DBP">
@@ -22,6 +23,8 @@
    TOKENS
 ───────────────────────────────────────── */
 :root {
+  /* Enforces your custom color scheme over the browser's default */
+  color-scheme: light dark;
   --bg:   #fdf6e3;
   --ink:  #111;
   --surf: #fff;
@@ -748,11 +751,15 @@ footer {
 .foot-line { width:60px; height:4px; background:var(--pink); margin:0 auto 1.1rem; }
 .foot-copy { font-weight:700; font-size:clamp(.68rem,1.7vw,.9rem); text-transform:uppercase; letter-spacing:.12em; opacity:.5; }
 
+/* ── SOCIAL ICONS ── */
 .social-float {
   position: fixed;
   bottom: clamp(20px, 4vw, 30px);
   left: clamp(20px, 4vw, 30px);
-  display: flex; gap: 12px; z-index: 9999;
+  display: flex;
+  flex-direction: row; /* Horizontal on laptop */
+  gap: 12px;
+  z-index: 9999;
 }
 .sf-btn {
   width: 44px; height: 44px;
@@ -767,27 +774,45 @@ footer {
 .sf-ig { background: #E1306C; color: #fff; }
 .sf-btn:hover { transform: translate(-3px, -3px); box-shadow: 7px 7px 0 var(--ink); }
 
+/* Mobile logic for social icons (Vertical) */
+@media(max-width: 767px) {
+  .social-float { 
+    flex-direction: column; /* Vertical on mobile */
+    bottom: 85px; 
+    left: 5vw; 
+  }
+}
+
+/* ── DBP BRANDING BADGE (Watermark) ── */
 .dbp-badge {
   position: fixed;
-  bottom: clamp(80px, 8vw, 90px);
-  left: clamp(20px, 4vw, 30px);
+  bottom: clamp(20px, 4vw, 30px);
+  right: clamp(20px, 4vw, 30px); /* Moved to bottom right */
+  left: auto;
   background: var(--yel); color: var(--ink);
-  border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--pink);
-  display: flex; align-items: center; gap: 12px;
-  padding: 10px 16px; z-index: 9999;
+  border: 2px solid var(--ink); /* Thinner border */
+  box-shadow: 4px 4px 0 var(--pink); /* Smaller shadow */
+  display: flex; align-items: center; gap: 8px; /* Tighter gap */
+  padding: 6px 10px; /* Much smaller padding */
+  z-index: 9999;
   font-family: var(--fh); font-weight: 900;
-  font-size: clamp(0.75rem, 2vw, 0.9rem);
+  font-size: 0.65rem; /* Reduced text size */
   text-transform: uppercase; letter-spacing: 0.08em;
-  transform: rotate(-4deg);
+  transform: rotate(-3deg);
   transition: transform 0.2s var(--ease), box-shadow 0.2s, background 0.2s;
   cursor: pointer;
 }
-.dbp-badge svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2.5; flex-shrink: 0; }
-.dbp-badge:hover { transform: rotate(0) translate(-4px, -4px); box-shadow: 10px 10px 0 var(--cyan); background: var(--bg); }
+.dbp-badge svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.5; flex-shrink: 0; }
+.dbp-badge:hover { transform: rotate(0) translate(-2px, -2px); box-shadow: 6px 6px 0 var(--cyan); background: var(--bg); }
 
+/* Mobile logic for badge */
 @media(max-width: 767px) {
-  .social-float { bottom: 85px; left: 5vw; }
-  .dbp-badge { bottom: 145px; left: 5vw; padding: 8px 12px; gap: 8px; transform: rotate(-2deg); }
+  .dbp-badge { 
+    bottom: 85px; /* Stay above sticky CTA */
+    right: 5vw; 
+    left: auto; 
+    transform: rotate(-2deg); 
+  }
 }
 
 .dbp-footer-brand {
@@ -816,7 +841,7 @@ footer {
     <rect x="9" y="9" width="6" height="6" fill="currentColor"/>
     <path d="M12 2v2M12 20v2M2 12h2M20 12h2M7 2v2M7 20v2M17 2v2M17 20v2M2 7h2M20 7h2M2 17h2M20 17h2" />
   </svg>
-  <span>Owned by DBP Systems</span>
+  <span>DBP Systems</span>
 </div>
 
 <div id="loader">
