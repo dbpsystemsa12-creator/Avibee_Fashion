@@ -7,11 +7,11 @@
 <meta name="description" content="Vaibhavee Pandey — Award-winning model, content creator & founder of Avibee Fashions.">
 <meta name="author" content="DBP">
 <meta name="generator" content="DBP Systems">
-<meta property="og:title"       content="Vaibhavee Pandey | Model & Creator">
+<meta property="og:title"        content="Vaibhavee Pandey | Model & Creator">
 <meta property="og:description" content="30K+ followers · 1M+ monthly impressions · Available for campaigns.">
-<meta property="og:image"       content="hero.jpg">
-<meta name="twitter:card"       content="summary_large_image">
-<meta name="theme-color"        content="#fdf6e3">
+<meta property="og:image"        content="hero.jpg">
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="theme-color"         content="#fdf6e3">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,7 +64,7 @@ img  { display:block; max-width:100%; object-fit:cover; }
 a    { text-decoration:none; color:inherit; }
 button { font-family:inherit; border:none; background:none; outline:none; }
 :focus-visible { outline:3px dashed var(--pink); outline-offset:4px; }
-::-webkit-scrollbar       { width:4px; }
+::-webkit-scrollbar        { width:4px; }
 ::-webkit-scrollbar-track { background:var(--bg); }
 ::-webkit-scrollbar-thumb { background:var(--ink); }
 
@@ -233,9 +233,9 @@ body::before {
 }
 
 /* ─────────────────────────────────────────
-   MODAL
+   MODALS (Contact)
 ───────────────────────────────────────── */
-#modal {
+.modal-overlay {
   position:fixed; inset:0;
   background:rgba(0,0,0,.75);
   backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
@@ -243,8 +243,8 @@ body::before {
   display:flex; align-items:flex-end; justify-content:center;
   transition:opacity .28s;
 }
-@media(min-width:600px) { #modal { align-items:center; padding:20px; } }
-#modal.on { opacity:1; pointer-events:all; }
+@media(min-width:600px) { .modal-overlay { align-items:center; padding:20px; } }
+.modal-overlay.on { opacity:1; pointer-events:all; }
 .mbox {
   background:var(--bg); width:100%; max-width:560px;
   padding:clamp(1.4rem,5vw,3rem);
@@ -257,7 +257,7 @@ body::before {
 @media(min-width:600px) {
   .mbox { border-radius:0; box-shadow:14px 14px 0 var(--pink); }
 }
-#modal.on .mbox { transform:translateY(0); opacity:1; }
+.modal-overlay.on .mbox { transform:translateY(0); opacity:1; }
 .mbox::-webkit-scrollbar { display:none; }
 .mhandle {
   width:40px; height:4px; background:var(--ink); opacity:.2;
@@ -485,7 +485,7 @@ body::before {
 .card p { font-weight:600; font-size:clamp(.87rem,1.8vw,1rem); }
 
 /* ─────────────────────────────────────────
-   PORTFOLIO — MOBILE-NATIVE SCROLL
+   PORTFOLIO
 ───────────────────────────────────────── */
 .port-wrap {
   position:relative;
@@ -549,7 +549,7 @@ body::before {
 }
 
 /* ─────────────────────────────────────────
-   TIMELINE
+   TIMELINE (ACHIEVEMENTS) & INLINE ACCORDION
 ───────────────────────────────────────── */
 .tl-sec { background:var(--surf); border-top:var(--bd); }
 .tl-wrap { position:relative; max-width:860px; margin:2.5rem auto 0; }
@@ -582,10 +582,19 @@ body::before {
 .tl-card {
   background:var(--bg); border:var(--bd);
   padding:1.2rem 1.4rem; box-shadow:5px 5px 0 var(--cyan);
-  transition:transform .2s var(--ease);
+  transition:transform .2s var(--ease), box-shadow .2s;
+  cursor: pointer;
 }
 .tl-item:nth-child(even) .tl-card { box-shadow:5px 5px 0 var(--pink); }
-.tl-item:hover .tl-card { transform:translateY(-4px); }
+
+.tl-item:hover .tl-card, .tl-card:focus-visible { 
+  transform:translate(-4px, -4px); 
+  box-shadow:8px 8px 0 var(--cyan);
+}
+.tl-item:nth-child(even):hover .tl-card, .tl-item:nth-child(even) .tl-card:focus-visible { 
+  box-shadow:8px 8px 0 var(--pink); 
+}
+
 .tl-yr {
   display:inline-block;
   background:var(--ink); color:var(--bg);
@@ -595,6 +604,34 @@ body::before {
 }
 .tl-card h4 { font-family:var(--fh); font-size:clamp(.95rem,2.2vw,1.2rem); margin-bottom:.3rem; }
 .tl-card p  { font-weight:600; font-size:clamp(.8rem,1.6vw,.9rem); opacity:.78; }
+.tl-card .click-hint { font-size: 0.65rem; color: var(--pink); font-weight: 900; text-transform: uppercase; margin-top: 0.5rem; display: block; letter-spacing: 0.05em; }
+
+/* Inline Expansion Styles for Public Viewing */
+.tl-expansion {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.5s var(--ease), opacity 0.4s var(--ease), margin-top 0.4s var(--ease), padding-top 0.4s var(--ease);
+}
+.tl-card.open .tl-expansion {
+  max-height: 800px;
+  opacity: 1;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px dashed rgba(0,0,0,0.2);
+}
+[data-theme="dark"] .tl-card.open .tl-expansion {
+  border-top: 2px dashed rgba(255,255,255,0.2);
+}
+.tl-img-preview {
+  width: 100%;
+  border: var(--bd);
+  box-shadow: 3px 3px 0 var(--pink);
+  border-radius: 4px;
+  object-fit: contain;
+  background: var(--surf);
+  display: block;
+}
 
 /* ─────────────────────────────────────────
    AVIBEE
@@ -695,14 +732,14 @@ body::before {
 .bnote p { font-weight:700; font-size:clamp(.8rem,1.7vw,.92rem); }
 
 /* ─────────────────────────────────────────
-   FOOTER
+   FOOTER & FLOATING ASSETS
 ───────────────────────────────────────── */
 footer {
   background:var(--ink); color:var(--bg);
   border-top:var(--bd); text-align:center;
-  padding:clamp(3rem,7vw,5rem) 5vw clamp(5rem,10vw,5rem);
+  padding:clamp(3rem,7vw,5rem) 5vw clamp(6rem,12vw,8rem);
 }
-@media(min-width:768px) { footer { padding-bottom:clamp(3rem,7vw,5rem); } }
+@media(min-width:768px) { footer { padding-bottom:clamp(4rem,8vw,6rem); } }
 .foot-big {
   font-family:var(--fh); font-weight:900; text-transform:uppercase;
   font-size:clamp(1.8rem,7vw,5rem); color:var(--bg);
@@ -711,71 +748,67 @@ footer {
 .foot-line { width:60px; height:4px; background:var(--pink); margin:0 auto 1.1rem; }
 .foot-copy { font-weight:700; font-size:clamp(.68rem,1.7vw,.9rem); text-transform:uppercase; letter-spacing:.12em; opacity:.5; }
 
-/* ─────────────────────────────────────────
-   DBP BRANDING - BRUTALIST BADGE
-───────────────────────────────────────── */
-.dbp-badge {
+.social-float {
   position: fixed;
   bottom: clamp(20px, 4vw, 30px);
   left: clamp(20px, 4vw, 30px);
-  background: var(--yel);
-  color: var(--ink);
-  border: 3px solid var(--ink);
-  box-shadow: 6px 6px 0 var(--pink);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 16px;
-  z-index: 9999;
-  font-family: var(--fh);
-  font-weight: 900;
+  display: flex; gap: 12px; z-index: 9999;
+}
+.sf-btn {
+  width: 44px; height: 44px;
+  background: var(--surf); border: var(--bd); 
+  box-shadow: 4px 4px 0 var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.sf-btn svg { width: 22px; height: 22px; fill: currentColor; }
+.sf-wa { background: #25D366; color: #fff; }
+.sf-ig { background: #E1306C; color: #fff; }
+.sf-btn:hover { transform: translate(-3px, -3px); box-shadow: 7px 7px 0 var(--ink); }
+
+.dbp-badge {
+  position: fixed;
+  bottom: clamp(80px, 8vw, 90px);
+  left: clamp(20px, 4vw, 30px);
+  background: var(--yel); color: var(--ink);
+  border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--pink);
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 16px; z-index: 9999;
+  font-family: var(--fh); font-weight: 900;
   font-size: clamp(0.75rem, 2vw, 0.9rem);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  text-transform: uppercase; letter-spacing: 0.08em;
   transform: rotate(-4deg);
   transition: transform 0.2s var(--ease), box-shadow 0.2s, background 0.2s;
   cursor: pointer;
 }
-.dbp-badge svg {
-  width: 24px;
-  height: 24px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2.5;
-  flex-shrink: 0;
-}
-.dbp-badge:hover {
-  transform: rotate(0) translate(-4px, -4px);
-  box-shadow: 10px 10px 0 var(--cyan);
-  background: var(--bg);
-}
+.dbp-badge svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2.5; flex-shrink: 0; }
+.dbp-badge:hover { transform: rotate(0) translate(-4px, -4px); box-shadow: 10px 10px 0 var(--cyan); background: var(--bg); }
+
 @media(max-width: 767px) {
-  .dbp-badge {
-    bottom: 85px; /* Lifts it above the mobile sticky CTA */
-    left: 5vw;
-    padding: 8px 12px;
-    gap: 8px;
-    transform: rotate(-2deg);
-  }
+  .social-float { bottom: 85px; left: 5vw; }
+  .dbp-badge { bottom: 145px; left: 5vw; padding: 8px 12px; gap: 8px; transform: rotate(-2deg); }
 }
 
 .dbp-footer-brand {
-  margin-top: 1.8rem;
-  font-family: var(--fh);
-  font-weight: 900;
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--pink);
+  margin-top: 1.8rem; font-family: var(--fh); font-weight: 900;
+  font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pink);
 }
-.dbp-footer-brand span {
-  color: var(--cyan);
-}
+.dbp-footer-brand span { color: var(--cyan); }
 </style>
 </head>
 <body>
 
 <div id="prog"></div>
+
+<div class="social-float">
+  <a href="https://wa.me/919827700975" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="sf-btn sf-wa">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a5.8 5.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.027 6.988 2.895a9.84 9.84 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+  </a>
+  <a href="https://www.instagram.com/vaibhavee_pandey_/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="sf-btn sf-ig">
+    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+  </a>
+</div>
 
 <div class="dbp-badge" title="A DBP Systems Project">
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -810,7 +843,7 @@ footer {
   </div>
 </nav>
 
-<div id="modal" role="dialog" aria-modal="true" aria-labelledby="mh">
+<div id="modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="mh">
   <div class="mbox">
     <div class="mhandle"></div>
     <button class="mclose" id="mclose" aria-label="Close">×</button>
@@ -952,73 +985,105 @@ footer {
 
     <div class="tl-item rv">
       <div class="tl-icon">🏅</div>
-      <div class="tl-card">
+      <div class="tl-card" tabindex="0">
         <span class="tl-yr">2023</span>
         <h4>State Pageant — Best Talent</h4>
         <p>Awarded Best Talent at the Regional Fashion &amp; Arts Pageant, establishing early national recognition.</p>
+        <span class="click-hint">Click to view memory ↓</span>
+        <div class="tl-expansion">
+          <img class="tl-img-preview" src="pageant-talent.jpg" alt="State Pageant Best Talent" loading="lazy">
+        </div>
       </div>
     </div>
 
     <div class="tl-item rv">
       <div class="tl-icon">📸</div>
-      <div class="tl-card">
+      <div class="tl-card" tabindex="0">
         <span class="tl-yr">2023</span>
         <h4>First Major Brand Campaign</h4>
         <p>Signed debut commercial deal, marking the start of a successful professional modeling career.</p>
+        <span class="click-hint">Click to view memory ↓</span>
+        <div class="tl-expansion">
+          <img class="tl-img-preview" src="first-campaign.jpg" alt="First Brand Campaign" loading="lazy">
+        </div>
       </div>
     </div>
 
     <div class="tl-item rv">
       <div class="tl-icon">👑</div>
-      <div class="tl-card">
+      <div class="tl-card" tabindex="0">
         <span class="tl-yr">2024</span>
         <h4>Miss Odisha Sandfest</h4>
         <p>Secured the coveted title, celebrated for exceptional grace, poise and stage presence.</p>
+        <span class="click-hint">Click to view memory ↓</span>
+        <div class="tl-expansion">
+          <img class="tl-img-preview" src="sandfest-crown.jpg" alt="Miss Odisha Sandfest" loading="lazy">
+        </div>
       </div>
     </div>
 
     <div class="tl-item rv">
       <div class="tl-icon">🌟</div>
-      <div class="tl-card">
+      <div class="tl-card" tabindex="0">
         <span class="tl-yr">2024</span>
         <h4>Miss India Nayantara — Finalist</h4>
         <p>Reached the national finals — a testament to competitive standing among India's finest.</p>
+        <span class="click-hint">Click to view memory ↓</span>
+        <div class="tl-expansion">
+          <img class="tl-img-preview" src="nayantara-finalist.jpg" alt="Miss India Nayantara Finalist" loading="lazy">
+        </div>
       </div>
     </div>
 
     <div class="tl-item rv">
       <div class="tl-icon">👗</div>
-      <div class="tl-card">
+      <div class="tl-card" tabindex="0">
         <span class="tl-yr">2024</span>
         <h4>Avibee Fashions Founded</h4>
         <p>Launched handcrafted fashion label merging traditional artistry with contemporary design.</p>
+        <span class="click-hint">Click to view memory ↓</span>
+        <div class="tl-expansion">
+          <img class="tl-img-preview" src="avibee-launch.jpg" alt="Avibee Fashions Launch" loading="lazy">
+        </div>
       </div>
     </div>
 
     <div class="tl-item rv">
       <div class="tl-icon">🎯</div>
-      <div class="tl-card">
+      <div class="tl-card" tabindex="0">
         <span class="tl-yr">2025</span>
         <h4>Miss Top Model Odisha</h4>
         <p>Affirmed status as a leading figure in the regional and national modeling landscape.</p>
+        <span class="click-hint">Click to view memory ↓</span>
+        <div class="tl-expansion">
+          <img class="tl-img-preview" src="top-model-odisha.jpg" alt="Miss Top Model Odisha" loading="lazy">
+        </div>
       </div>
     </div>
 
     <div class="tl-item rv">
       <div class="tl-icon">📱</div>
-      <div class="tl-card">
+      <div class="tl-card" tabindex="0">
         <span class="tl-yr">2025</span>
         <h4>1 Million Impressions / Month</h4>
         <p>Social media scaled to 1M+ monthly impressions with 60%+ average engagement rate.</p>
+        <span class="click-hint">Click to view memory ↓</span>
+        <div class="tl-expansion">
+          <img class="tl-img-preview" src="one-million-stats.jpg" alt="1 Million Impressions Analytics" loading="lazy">
+        </div>
       </div>
     </div>
 
     <div class="tl-item rv">
       <div class="tl-icon">🏆</div>
-      <div class="tl-card">
+      <div class="tl-card" tabindex="0">
         <span class="tl-yr">2026</span>
         <h4>Influencer Impact Award</h4>
         <p>Recognized for profound digital reach and outstanding effectiveness as a brand creator.</p>
+        <span class="click-hint">Click to view memory ↓</span>
+        <div class="tl-expansion">
+          <img class="tl-img-preview" src="impact-award.jpg" alt="Influencer Impact Award" loading="lazy">
+        </div>
       </div>
     </div>
 
@@ -1142,7 +1207,6 @@ function waitForGSAP(cb) {
 var FINE  = window.matchMedia('(pointer:fine)').matches;
 var TOUCH = !FINE;
 
-/* ── Ripple ── */
 function addRipple(btn) {
   btn.addEventListener('click', function(e) {
     var r  = this.getBoundingClientRect();
@@ -1155,7 +1219,6 @@ function addRipple(btn) {
   });
 }
 
-/* ── Preloader ── */
 (function() {
   var lname  = document.getElementById('lname');
   var lnum   = document.getElementById('lnum');
@@ -1185,14 +1248,9 @@ function addRipple(btn) {
   }, 32);
 })();
 
-/* ════════════════════════════════════
-   BOOT
-════════════════════════════════════ */
 function boot() {
-
   document.querySelectorAll('.btn, .scta-btn').forEach(addRipple);
 
-  /* ── Theme toggle ── */
   var tbtn = document.getElementById('tbtn');
   if (window.matchMedia('(prefers-color-scheme:dark)').matches) {
     document.documentElement.setAttribute('data-theme','dark');
@@ -1209,7 +1267,6 @@ function boot() {
     }
   });
 
-  /* ── Progress bar ── */
   var prog = document.getElementById('prog');
   window.addEventListener('scroll', function() {
     var s   = document.documentElement;
@@ -1217,7 +1274,6 @@ function boot() {
     prog.style.width = pct + '%';
   }, { passive: true });
 
-  /* ── Navbar hide/show ── */
   var navbar = document.getElementById('nav');
   var lastY  = 0;
   window.addEventListener('scroll', function() {
@@ -1227,7 +1283,6 @@ function boot() {
     lastY = y;
   }, { passive: true });
 
-  /* ── Sticky CTA ── */
   var scta = document.getElementById('scta');
   window.addEventListener('scroll', function() {
     var ratio = window.scrollY / Math.max(1, document.body.scrollHeight - window.innerHeight);
@@ -1235,20 +1290,18 @@ function boot() {
     else scta.classList.remove('up');
   }, { passive: true });
 
-  /* ── Cursor (desktop only) ── */
   var cur = document.getElementById('cur');
   if (FINE) {
     cur.style.display = 'block';
     var mx = 0, my = 0;
     window.addEventListener('mousemove', function(e) { mx = e.clientX; my = e.clientY; });
     gsap.ticker.add(function() { gsap.set(cur, { x: mx, y: my }); });
-    document.querySelectorAll('a, button, .card, .cblock, .dbp-badge').forEach(function(el) {
+    document.querySelectorAll('a, button, .card, .cblock, .dbp-badge, .tl-card, .sf-btn').forEach(function(el) {
       el.addEventListener('mouseenter', function() { cur.classList.add('big'); });
       el.addEventListener('mouseleave', function() { cur.classList.remove('big'); });
     });
   }
 
-  /* ── Smooth stat counters ── */
   var statIO = new IntersectionObserver(function(entries) {
     entries.forEach(function(en) {
       if (!en.isIntersecting) return;
@@ -1269,7 +1322,6 @@ function boot() {
   }, { threshold: 0.4 });
   document.querySelectorAll('.stat-n').forEach(function(el) { statIO.observe(el); });
 
-  /* ── Scroll reveals ── */
   var revIO = new IntersectionObserver(function(entries) {
     entries.forEach(function(en) {
       if (!en.isIntersecting) return;
@@ -1279,7 +1331,6 @@ function boot() {
   }, { rootMargin: '0px 0px -40px 0px', threshold: 0.06 });
   document.querySelectorAll('.rv').forEach(function(el) { revIO.observe(el); });
 
-  /* ── Magnetic buttons (desktop only) ── */
   if (FINE) {
     document.querySelectorAll('.btn').forEach(function(btn) {
       btn.addEventListener('mousemove', function(e) {
@@ -1294,11 +1345,6 @@ function boot() {
     });
   }
 
-  /*
-   * ── Portfolio: desktop gets mouse-drag scroll,
-   * mobile already has native touch scroll via CSS.
-   * NO GSAP pin — that was the source of mobile lag.
-   */
   if (FINE) {
     var pt = document.getElementById('pt');
     if (pt) {
@@ -1322,7 +1368,6 @@ function boot() {
     }
   }
 
-  /* ── Draggable Avibee photos ── */
   if (document.querySelector('.ditem')) {
     Draggable.create('.ditem', {
       type: 'x,y',
@@ -1339,15 +1384,34 @@ function boot() {
     });
   }
 
-  /* ── Testimonials: clone for seamless CSS loop ── */
   var tt = document.getElementById('tt');
   if (tt) { tt.innerHTML += tt.innerHTML; }
 
+  /* ── Timeline Inline Accordion ── */
+  var tlCards = document.querySelectorAll('.tl-card');
+  tlCards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      var isExpanded = this.classList.contains('open');
+      
+      // Close all cards first
+      tlCards.forEach(function(c) { c.classList.remove('open'); });
+      
+      // Open the clicked card if it wasn't already open
+      if (!isExpanded) { this.classList.add('open'); }
+    });
+
+    // Accessibility for keyboard users
+    card.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.click();
+      }
+    });
+  });
+
 } /* end boot() */
 
-/* ════════════════════════════════════
-   MODAL
-════════════════════════════════════ */
+/* ── Contact Modal Logic ── */
 var modal = document.getElementById('modal');
 var mOpen = false;
 
